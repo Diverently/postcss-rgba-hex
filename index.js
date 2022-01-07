@@ -13,7 +13,7 @@ var assign = require('object-assign'); // fixme: remove after postcss node 0.12 
 //
 // RGB(a) regex
 var rgbReg = /rgb\(\d+%?\s*,\s*\d+%?\s*,\s*\d+%?\s*(,\s*\d?.?\d+)?\)/g;
-var rgbaReg = /rgba\(\d+%?\s*,\s*\d+%?\s*,\s*\d+%?\s*(,\s*\d?.?\d+)?\)/g;
+var rgbaReg = /rgba\(\d+%?\s*,\s*\d+%?\s*,\s*\d+%?\s*(,\s*\d?.?\d+|,\s*var\(--tw-text-opacity\))?\)/g;
 var rgbRgbaReg = /rgba?\(\d+%?\s*,\s*\d+%?\s*,\s*\d+%?\s*(,\s*\d?.?\d+)?\)/g;
 
 /**
