@@ -24,7 +24,7 @@
   "homepage": "https://github.com/XOP/postcss-rgba-hex",
   "dependencies": {
     "object-assign": "^4.1.0",
-    "postcss": "^5.0.10",
+    "postcss": "^8.3.6",
     "rgb2hex": "^0.1.0"
   },
   "devDependencies": {
