@@ -6,40 +6,23 @@
 //
 // Module dependencies
 
-var postcss = require('postcss');
 var rgb2hex = require('rgb2hex');
 var assign = require('object-assign'); // fixme: remove after postcss node 0.12 drop support
-
-//
-// RGB(a) regex
-var rgbReg = /rgb\(\d+%?\s*,\s*\d+%?\s*,\s*\d+%?\s*?\)/g;
-var rgbaReg = /rgba\(\d+%?\s*,\s*\d+%?\s*,\s*\d+%?\s*(,\s*\d?.?\d+|,\s*var\(--tw-(?:.*)-opacity\))?\)/g;
-var rgbRgbaReg = /rgba?\(\d+%?\s*,\s*\d+%?\s*,\s*\d+%?\s*(,\s*\d?.?\d+|,\s*var\(--tw-(?:.*)-opacity\))?\)/g;
 
 /**
  * PostCSS plugin
  * @type {*}
  */
-module.exports = postcss.plugin('postcss-rgba-hex', function (options) {
+module.exports = (opts = {}) => {
+    var reg = /rgba\(\d+%?\s*,\s*\d+%?\s*,\s*\d+%?\s*(,\s*\d?.?\d+|,\s*var\(--tw-(?:.*)-opacity\))?\)/g;
+    var o = assign({}, opts);
 
-    var reg = rgbaReg;
-    var o = assign({}, options);
-
-    if (o.rgbOnly && o.rgbaOnly) {
-        console.error('Invalid options');
-        return noop;
-    }
-
-    if (o.rgbOnly) {
-        reg = rgbReg;
-    }
-
-    if (o.rgbaOnly) {
-        reg = rgbaReg;
-    }
-
-    return function (style) {
-        style.walkDecls(function (decl) {
+    return {
+        postcssPlugin: 'postcss-rgba-hex',
+        Once(root, { result }) {
+            console.log('Converting Tailwind colors to hex');
+        },
+        Declaration(decl) {
             var val = decl.value;
 
             // early return
@@ -64,9 +47,10 @@ module.exports = postcss.plugin('postcss-rgba-hex', function (options) {
                 });
                 decl.value = newVal;
             }
-        });
-    };
-});
+        }
+    }
+}
+module.exports.postcss = true
 
 /**
  * RGBA(a) to hex transformer
