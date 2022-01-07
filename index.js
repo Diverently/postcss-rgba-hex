@@ -37,9 +37,9 @@ module.exports = (opts = {}) => {
             if (rgbValues && rgbValues.length > 0) {
                 var newVal = val;
 
-                rgbValues.forEach(function (rgb) {
+                rgbValues.forEach(rgb => {
                     var rgbString = rgb.replace(/,\s*var\(--tw-(.*)-opacity\)/, '');
-                    newVal = newVal.replace(rgbString, rgbaToHex(rgbString));
+                    newVal = newVal.replace(rgb, rgbaToHex(rgbString));
 
                     if (!o.silent) {
                         console.info('RGB(a) replaced: ' + rgb + ' -> ' + rgbaToHex(rgbString));
